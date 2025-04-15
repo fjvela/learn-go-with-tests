@@ -40,7 +40,7 @@ jobs:
       run: go build -v -o app ./...
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: app-${{ matrix.go-version }}
         path: ./app
