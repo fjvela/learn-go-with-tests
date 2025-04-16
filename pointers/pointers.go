@@ -21,3 +21,7 @@ func (w *Wallet) Balance() Bitcoin {
 	// https://go.dev/ref/spec#Method_values
 	return w.balance
 }
+
+func (w *Wallet) Withdraw(amount Bitcoin) {
+
+}
