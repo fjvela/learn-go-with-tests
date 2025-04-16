@@ -35,6 +35,3 @@ jobs:
       uses: golangci/golangci-lint-action@v7
       with:
         version: latest
-
-    - name: Build
-      run: go build -v -o app ./...
