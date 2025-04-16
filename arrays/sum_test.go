@@ -9,9 +9,7 @@ func TestSum(t *testing.T) {
 		got := Sum(numbers)
 		want := 15
 
-		if got != want {
-			t.Errorf("got %d want %d", got, want)
-		}
+		check(t, got, want)
 	})
 
 	t.Run("collection of any size", func(t *testing.T) {
@@ -19,9 +17,13 @@ func TestSum(t *testing.T) {
 		got := Sum(numbers)
 		want := 45
 
-		if got != want {
-			t.Errorf("got %d want %d", got, want)
-		}
+		check(t, got, want)
 	})
 
+}
+
+func check(t *testing.T, got int, want int) {
+	if got != want {
+		t.Errorf("got %d want %d", got, want)
+	}
 }
