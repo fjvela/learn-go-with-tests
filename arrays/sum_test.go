@@ -31,20 +31,22 @@ func TestSumAll(t *testing.T) {
 		got := SumAll([]int{1, 2}, []int{0, 9})
 		want := []int{3, 9}
 
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got %v want %v", got, want)
-		}
+		checkSliceTestResult(t, got, want)
 	})
 
 	t.Run("sum of any size slices", func(t *testing.T) {
 		got := SumAll([]int{1, 2, 3}, []int{0, 9, 10})
 		want := []int{6, 19}
 
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got %v want %v", got, want)
-		}
+		checkSliceTestResult(t, got, want)
 	})
 
+}
+
+func checkSliceTestResult(t *testing.T, got []int, want []int) {
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("got %v want %v", got, want)
+	}
 }
 
 func checkTestResult(t *testing.T, got int, want int) {
