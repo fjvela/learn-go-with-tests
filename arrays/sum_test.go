@@ -50,6 +50,13 @@ func TestSumAllTains(t *testing.T) {
 
 		checkSliceTestResult(t, got, want)
 	})
+
+	t.Run("sum of empty slices", func(t *testing.T) {
+		got := SumAllTails([]int{}, []int{0, 9, 10})
+		want := []int{0, 19}
+
+		checkSliceTestResult(t, got, want)
+	})
 }
 
 func checkSliceTestResult(t *testing.T, got []int, want []int) {
