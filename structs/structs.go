@@ -16,3 +16,10 @@ func Perimeter(rectangle Rectangle) float64 {
 func Area(rectangle Rectangle) float64 {
 	return rectangle.Width * rectangle.Height
 }
+
+func (r Rectangle) Area() float64 {
+	return 0
+}
+func (c Circle) Area() float64 {
+	return 0
+}
