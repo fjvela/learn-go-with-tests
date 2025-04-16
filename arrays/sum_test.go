@@ -44,28 +44,37 @@ func TestSumAll(t *testing.T) {
 }
 
 func TestSumAllTains(t *testing.T) {
+
+	checkSums := func(t *testing.T, got []int, want []int) {
+		t.Helper()
+		if len(got) != len(want) {
+			t.Errorf("got %d slices, want %d slices", len(got), len(want))
+		}
+	}
 	t.Run("sum of any size slices", func(t *testing.T) {
 		got := SumAllTails([]int{1, 2, 3}, []int{0, 9, 10})
 		want := []int{5, 19}
 
-		checkSliceTestResult(t, got, want)
+		checkSums(t, got, want)
 	})
 
 	t.Run("sum of empty slices", func(t *testing.T) {
 		got := SumAllTails([]int{}, []int{0, 9, 10})
 		want := []int{0, 19}
 
-		checkSliceTestResult(t, got, want)
+		checkSums(t, got, want)
 	})
 }
 
 func checkSliceTestResult(t *testing.T, got []int, want []int) {
+	t.Helper()
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v want %v", got, want)
 	}
 }
 
 func checkTestResult(t *testing.T, got int, want int) {
+	t.Helper()
 	if got != want {
 		t.Errorf("got %d want %d", got, want)
 	}
