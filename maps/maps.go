@@ -1,13 +1,17 @@
 package maps
 
-import "errors"
-
 type Dictionary map[string]string
+type DictionaryErr string
 
+// https://dave.cheney.net/2016/04/07/constant-errors
 var (
-	ErrNotFound   = errors.New("the key does not exist")
-	ErrWordExists = errors.New("word exists")
+	ErrNotFound   = DictionaryErr("the key does not exist")
+	ErrWordExists = DictionaryErr("word exists")
 )
+
+func (e DictionaryErr) Error() string {
+	return string(e)
+}
 
 func (d Dictionary) Add(key string, value string) error {
 	_, err := d.Search(key)
