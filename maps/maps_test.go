@@ -49,6 +49,17 @@ func TestSearch(t *testing.T) {
 	})
 }
 
+func TestUpdate(t *testing.T) {
+	key := "test"
+	value := "this is just a test"
+	dictionary := Dictionary{key: value}
+	newValue := "this is a new test"
+
+	dictionary.Update(key, newValue)
+
+	assertDefinition(t, dictionary, key, newValue)
+}
+
 func assert(t *testing.T, got string, want string) {
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
