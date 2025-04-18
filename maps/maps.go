@@ -5,8 +5,9 @@ type DictionaryErr string
 
 // https://dave.cheney.net/2016/04/07/constant-errors
 var (
-	ErrNotFound   = DictionaryErr("the key does not exist")
-	ErrWordExists = DictionaryErr("word exists")
+	ErrNotFound     = DictionaryErr("the key does not exist")
+	ErrWordExists   = DictionaryErr("word exists")
+	ErrKeyNotExists = DictionaryErr("key does not exist")
 )
 
 func (e DictionaryErr) Error() string {
@@ -38,6 +39,16 @@ func (d Dictionary) Search(key string) (string, error) {
 	return result, nil
 }
 
-func (d Dictionary) Update(key string, value string) {
-	d[key] = value
+func (d Dictionary) Update(key string, value string) error {
+	_, err := d.Search(key)
+
+	switch err {
+	case ErrNotFound:
+		return ErrKeyNotExists
+	case nil:
+		d[key] = value
+	default:
+		return err
+	}
+	return nil
 }
