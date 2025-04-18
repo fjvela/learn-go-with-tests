@@ -3,13 +3,30 @@ package maps
 import "testing"
 
 func TestAdd(t *testing.T) {
-	dictionary := Dictionary{}
-	key := "test"
-	value := "this is just a test"
 
-	dictionary.Add(key, value)
+	t.Run("add new key", func(t *testing.T) {
 
-	assertDefinition(t, dictionary, key, value)
+		dictionary := Dictionary{}
+		key := "test"
+		value := "this is just a test"
+
+		err := dictionary.Add(key, value)
+
+		assertError(t, err)
+		assertDefinition(t, dictionary, key, value)
+	})
+
+	t.Run("add existing key", func(t *testing.T) {
+		key := "thekeyexits"
+		value := "this is just a test"
+
+		dictionary := Dictionary{key: value}
+		err := dictionary.Add(key, value)
+
+		assertError(t, err)
+		assertDefinition(t, dictionary, key, value)
+	})
+
 }
 
 func TestSearch(t *testing.T) {
