@@ -50,14 +50,30 @@ func TestSearch(t *testing.T) {
 }
 
 func TestUpdate(t *testing.T) {
-	key := "test"
-	value := "this is just a test"
-	dictionary := Dictionary{key: value}
-	newValue := "this is a new test"
 
-	dictionary.Update(key, newValue)
+	t.Run("update existing key", func(t *testing.T) {
 
-	assertDefinition(t, dictionary, key, newValue)
+		key := "test"
+		value := "this is just a test"
+		dictionary := Dictionary{key: value}
+		newValue := "this is a new test"
+
+		err := dictionary.Update(key, newValue)
+
+		assertError(t, err, nil)
+		assertDefinition(t, dictionary, key, newValue)
+	})
+
+	t.Run("update unexisting key", func(t *testing.T) {
+
+		key := "test"
+		value := "this is just a test"
+		dictionary := Dictionary{}
+
+		err := dictionary.Update(key, value)
+
+		assertError(t, err, ErrKeyNotExists)
+	})
 }
 
 func assert(t *testing.T, got string, want string) {
