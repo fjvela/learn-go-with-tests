@@ -29,6 +29,10 @@ func (d Dictionary) Add(key string, value string) error {
 	return nil
 }
 
+func (d Dictionary) Delete(key string) {
+	delete(d, key)
+}
+
 func (d Dictionary) Search(key string) (string, error) {
 	result, exits := d[key]
 
