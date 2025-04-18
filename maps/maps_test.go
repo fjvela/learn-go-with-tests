@@ -30,14 +30,25 @@ func TestAdd(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
-	key := "key"
-	value := "a random value"
-	dictionary := Dictionary{key: value}
+	t.Run("delete existing key", func(t *testing.T) {
+		key := "key"
+		value := "a random value"
+		dictionary := Dictionary{key: value}
 
-	dictionary.Delete(key)
-	_, err := dictionary.Search(key)
+		err := dictionary.Delete(key)
+		assertError(t, err, nil)
 
-	assertError(t, err, ErrNotFound)
+		_, err = dictionary.Search(key)
+		assertError(t, err, ErrNotFound)
+	})
+
+	t.Run("delete unexisting key", func(t *testing.T) {
+		dictionary := Dictionary{}
+		key := "key"
+
+		err := dictionary.Delete(key)
+		assertError(t, err, ErrKeyNotExists)
+	})
 }
 
 func TestSearch(t *testing.T) {
