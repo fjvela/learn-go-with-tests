@@ -12,7 +12,7 @@ func TestAdd(t *testing.T) {
 
 		err := dictionary.Add(key, value)
 
-		assertError(t, err)
+		assertError(t, err, nil)
 		assertDefinition(t, dictionary, key, value)
 	})
 
@@ -23,7 +23,7 @@ func TestAdd(t *testing.T) {
 		dictionary := Dictionary{key: value}
 		err := dictionary.Add(key, value)
 
-		assertError(t, err)
+		assertError(t, err, ErrWordExists)
 		assertDefinition(t, dictionary, key, value)
 	})
 
@@ -65,6 +65,11 @@ func assertDefinition(t *testing.T, dictionary Dictionary, key string, value str
 	assert(t, got, value)
 }
 
-func assertError(t *testing.T, err error) {
+func assertError(t *testing.T, got error, want error) {
+	t.Helper()
+
+	if got != want {
+		t.Errorf("got %q want %q", got, want)
+	}
 
 }
