@@ -4,14 +4,12 @@ import "testing"
 
 func TestAdd(t *testing.T) {
 	dictionary := Dictionary{}
-	dictionary.Add("test", "this is just a test")
+	key := "test"
+	value := "this is just a test"
 
-	want := "this is just a test"
-	got, err := dictionary.Search("test")
-	if err != nil {
-		t.Fatal("should find added word in dictionary")
-	}
-	assert(t, got, want)
+	dictionary.Add(key, value)
+
+	assertDefinition(t, dictionary, key, value)
 }
 
 func TestSearch(t *testing.T) {
@@ -38,4 +36,14 @@ func assert(t *testing.T, got string, want string) {
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
 	}
+}
+
+func assertDefinition(t *testing.T, dictionary Dictionary, key string, value string) {
+	t.Helper()
+
+	got, err := dictionary.Search(key)
+	if err != nil {
+		t.Fatal("should find added definition:", err)
+	}
+	assert(t, got, value)
 }
