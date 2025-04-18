@@ -29,6 +29,17 @@ func TestAdd(t *testing.T) {
 
 }
 
+func TestDelete(t *testing.T) {
+	key := "key"
+	value := "a random value"
+	dictionary := Dictionary{key: value}
+
+	dictionary.Delete(key)
+	_, err := dictionary.Search(key)
+
+	assertError(t, err, ErrNotFound)
+}
+
 func TestSearch(t *testing.T) {
 	dict := Dictionary{"test": "test"}
 
