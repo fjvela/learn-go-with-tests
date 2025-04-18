@@ -29,8 +29,18 @@ func (d Dictionary) Add(key string, value string) error {
 	return nil
 }
 
-func (d Dictionary) Delete(key string) {
-	delete(d, key)
+func (d Dictionary) Delete(key string) error {
+	_, err := d.Search(key)
+
+	switch err {
+	case ErrNotFound:
+		return ErrKeyNotExists
+	case nil:
+		delete(d, key)
+	default:
+		return err
+	}
+	return nil
 }
 
 func (d Dictionary) Search(key string) (string, error) {
