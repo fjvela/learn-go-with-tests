@@ -37,3 +37,7 @@ func (d Dictionary) Search(key string) (string, error) {
 
 	return result, nil
 }
+
+func (d Dictionary) Update(key string, value string) {
+	d[key] = value
+}
