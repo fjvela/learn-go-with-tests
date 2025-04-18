@@ -4,8 +4,9 @@ import "errors"
 
 type Dictionary map[string]string
 
-func (d Dictionary) Add(key string, value string) {
+func (d Dictionary) Add(key string, value string) error {
 	d[key] = value
+	return nil
 }
 
 func (d Dictionary) Search(key string) (string, error) {

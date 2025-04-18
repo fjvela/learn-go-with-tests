@@ -64,3 +64,7 @@ func assertDefinition(t *testing.T, dictionary Dictionary, key string, value str
 	}
 	assert(t, got, value)
 }
+
+func assertError(t *testing.T, err error) {
+
+}
