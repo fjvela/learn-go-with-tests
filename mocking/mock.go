@@ -26,6 +26,10 @@ func (d *DefaultSleeper) Sleep() {
 	time.Sleep(countdownDuration)
 }
 
+func (c *ConfigurableSleeper) Sleep() {
+	c.sleep(c.duration)
+}
+
 func Countdown(buffer io.Writer, sleeper Sleeper) {
 	for i := countdownStart; i > 0; i-- {
 		fmt.Fprintln(buffer, i)
