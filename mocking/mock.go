@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"iter"
 	"os"
 	"time"
 )
@@ -30,16 +31,27 @@ func (c *ConfigurableSleeper) Sleep() {
 	c.sleep(c.duration)
 }
 
-func Countdown(buffer io.Writer, sleeper Sleeper) {
-	for i := countdownStart; i > 0; i-- {
-		fmt.Fprintln(buffer, i)
+// Countdown prints a countdown from 3 to out with a delay between count provided by Sleeper.
+func Countdown(out io.Writer, sleeper Sleeper) {
+	for i := range countDownFrom(3) {
+		fmt.Fprintln(out, i)
 		sleeper.Sleep()
 	}
-	fmt.Fprint(buffer, finalWord)
+
+	fmt.Fprint(out, finalWord)
+}
+
+func countDownFrom(from int) iter.Seq[int] {
+	return func(yield func(int) bool) {
+		for i := from; i > 0; i-- {
+			if !yield(i) {
+				return
+			}
+		}
+	}
 }
 
 func main() {
-	// sleeper := &DefaultSleeper{}
 	sleeper := &ConfigurableSleeper{1 * time.Second, time.Sleep}
 	Countdown(os.Stdout, sleeper)
 }
