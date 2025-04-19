@@ -11,6 +11,11 @@ const finalWord = "Go!"
 const countdownStart = 3
 const countdownDuration = 1 * time.Second
 
+type ConfigurableSleeper struct {
+	duration time.Duration
+	sleep    func(time.Duration)
+}
+
 type Sleeper interface {
 	Sleep()
 }
